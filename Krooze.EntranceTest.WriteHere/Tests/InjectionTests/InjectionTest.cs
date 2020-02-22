@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Krooze.EntranceTest.WriteHere.Structure.Model;
+using Krooze.EntranceTest.WriteHere.Structure.Services;
 
 namespace Krooze.EntranceTest.WriteHere.Tests.InjectionTests
 {
@@ -11,7 +12,7 @@ namespace Krooze.EntranceTest.WriteHere.Tests.InjectionTests
             //There is an interface (IGetCruise) that is implemented by 3 classes (Company1, Company2 and Company3)
             //Make sure that the correct class is injected based on the CruiseCompanyCode on the request
             //without directly referencing the 3 classes and the method GetCruises of the chosen implementation is called
-            return null;
+            return new CruiseService().GetCruises(request.CruiseCompanyCode);
         }
     }
 }

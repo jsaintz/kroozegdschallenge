@@ -1,37 +1,36 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace Krooze.EntranceTest.WriteHere.Structure.Model
 {
     /// <summary>
     /// Cruise Transfer Object
     /// </summary>
+    /// <summary>
+    /// Cruise Transfer Object
+    /// </summary>    
     public class CruiseDTO
     {
         public string CruiseCode { get; set; }
-        /// <summary>
-        /// Total Value of the Cruise
-        /// </summary>
+
         public decimal TotalValue { get; set; }
-        /// <summary>
-        /// Total Cabin (CAB) Value
-        /// </summary>
+
         public decimal CabinValue { get; set; }
-        /// <summary>
-        /// Total Port Charge (PCH) Value
-        /// </summary>
+
+        [XmlElement("PortChargesAmt")]
         public decimal PortCharge { get; set; }
-        /// <summary>
-        /// Ship Name
-        /// </summary>
+
         public string ShipName { get; set; }
 
         public List<PassengerCruiseDTO> PassengerCruise { get; set; }
 
-    }
-
-    public class PassengerCruiseDTO
-    {
-        public CruiseDTO Cruise { get; set; }
-        public string PassengerCode { get; set; }
+        public bool IsThereDiscount() => LastCabinValue() < this.FirstCabinValue();
+    
+        private decimal FirstCabinValue() => PassengerCruise.First().Cruise.CabinValue;
+       
+        private decimal LastCabinValue()  => PassengerCruise.Last().Cruise.CabinValue;
+        
+        
     }
 }
